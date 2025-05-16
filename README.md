@@ -68,22 +68,13 @@ Caso prefira rodar o projeto localmente com Python instalado na sua máquina:
 
 ## ✅ Pré-requisitos
 
-- Python 3.11 ou superior
+- Python 3.13 ou superior
 - [PostgreSQL](https://www.postgresql.org/) rodando localmente (ou modifique a `DATABASE_URL` para outro banco)
 - [Poetry](https://python-poetry.org/) (opcional) ou `pip`
 
 ---
 
-## ⚙️ 1. Clonar o projeto
-
-```bash
-git clone https://github.com/seu-usuario/user-api.git
-cd user-api
-```
-
----
-
-## 🧪 2. Criar ambiente virtual e ativar
+## 🧪 1. Criar ambiente virtual e ativar
 
 ```bash
 python -m venv .venv
@@ -93,7 +84,7 @@ source .venv/bin/activate  # Linux/macOS
 
 ---
 
-## 📦 3. Instalar as dependências
+## 📦 2. Instalar as dependências
 
 ```bash
 pip install -r requirements.txt
@@ -101,20 +92,20 @@ pip install -r requirements.txt
 
 ---
 
-## 🛠️ 4. Criar e configurar o arquivo `.env`
+## 🛠️ 3. Criar e configurar o arquivo `.env`
 
 Crie um arquivo `.env` com o conteúdo abaixo:
 
 ```env
 SECRET_KEY=suachavesecreta
-DATABASE_URL=postgresql://postgres:postgres@localhost:5432/userdb
+DATABASE_URL=sqlite:///./dev.db
 ```
 
 💡 Certifique-se de que o banco `userdb` já existe e que o PostgreSQL esteja rodando.
 
 ---
 
-## 🧱 5. Rodar as migrações
+## 🧱 4. Rodar as migrações
 
 ```bash
 flask db init     # só na primeira vez
@@ -124,7 +115,7 @@ flask db upgrade
 
 ---
 
-## 🚀 6. Iniciar o servidor
+## 🚀 5. Iniciar o servidor
 
 ```bash
 python run.py
@@ -154,7 +145,7 @@ A aplicação estará disponível em [http://localhost:5000](http://localhost:50
 
 ### ▶️ Registro
 ```http
-POST /api/auth/register
+POST localhost:5000/auth/register
 Content-Type: application/json
 
 {
@@ -165,7 +156,7 @@ Content-Type: application/json
 
 ### ▶️ Login
 ```http
-POST /api/auth/login
+POST localhost:5000/auth/login
 Content-Type: application/json
 
 {
@@ -184,13 +175,13 @@ Retorno:
 
 ### 🔐 Rota protegida
 ```http
-GET /api/auth/me
+GET localhost:5000/auth/me
 Authorization: Bearer {access_token}
 ```
 
 ### ♻️ Refresh token
 ```http
-POST /api/auth/refresh
+POST localhost:5000/auth/refresh
 Content-Type: application/json
 
 {
